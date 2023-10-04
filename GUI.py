@@ -95,7 +95,7 @@ class GUI:
         BUTTON_WITDH = 690  # Ancho fijo para los botones
         BUTTON_HEIGHT = 35  # Alto fijo para los botones
         row_counter = 0
-        add_icon = ctk.CTkImage(Image.open("images/add_icon.png"), size=(15, 15))
+        add_icon = ctk.CTkImage(Image.open("MusicPlayer/images/add_icon.png"), size=(15, 15))
         scroller_frame=ctk.CTkScrollableFrame(
             master=frame,
             width=BUTTON_WITDH*1.2, height=BUTTON_HEIGHT*12.5,
@@ -131,8 +131,8 @@ class GUI:
         BUTTON_WITDH = 40  # Ancho fijo para los botones
         BUTTON_HEIGHT = 40  # Alto fijo para los botones
         #boton de play y pausa (ya que ambos son los mismos)--------------------------------
-        play_icon = ctk.CTkImage(Image.open("images/play_icon.png"), size=(BUTTON_WITDH, BUTTON_HEIGHT))
-        pause_icon = ctk.CTkImage(Image.open("images/pause_icon.png"), size=(BUTTON_WITDH, BUTTON_HEIGHT))
+        play_icon = ctk.CTkImage(Image.open("MusicPlayer/images/play_icon.png"), size=(BUTTON_WITDH, BUTTON_HEIGHT))
+        pause_icon = ctk.CTkImage(Image.open("MusicPlayer/images/pause_icon.png"), size=(BUTTON_WITDH, BUTTON_HEIGHT))
         
         if self.song_is_playing:
             self.set_song_is_playing(False)
@@ -159,7 +159,7 @@ class GUI:
 
 
         #boton de next----------------------------------
-        next_icon=ctk.CTkImage(Image.open("images/next_icon.png"), size=(BUTTON_WITDH, BUTTON_HEIGHT))
+        next_icon=ctk.CTkImage(Image.open("MusicPlayer/images/next_icon.png"), size=(BUTTON_WITDH, BUTTON_HEIGHT))
         next_icon = ctk.CTkButton(
             master=frame, image=next_icon,
             fg_color=self.button_color, 

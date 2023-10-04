@@ -1,6 +1,6 @@
 class Music_List_Reader():
     def __init__(self):
-        self.file_path = "Music_List.txt" 
+        self.file_path = "MusicPlayer/Music_List.txt" 
 
     def read_file(self):
         data = []
@@ -12,7 +12,7 @@ class Music_List_Reader():
                     if len(columns) == 4:
                         data.append(columns)
         except FileNotFoundError:
-            print(f"El archivo {self.archivo} no fue encontrado.")
+            print(f"El archivo {self.file_path} no fue encontrado.")
         return data
 
 
