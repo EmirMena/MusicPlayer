@@ -1,12 +1,12 @@
-Monaco,Lagos&DannyOcean,Pop,Music\Monaco-Lagos_DannyOcean.mp3
-Back in black,AC/DC,Metal,Music\Back_in_Black-AC_DC.mp3
-Legend,The Score,Alternative,Music\Legend-The_Score.mp3
-Monaco,Lagos&DannyOcean,Pop,Music\Monaco-Lagos_DannyOcean.mp3
-Back in black,AC/DC,Metal,Music\Back_in_Black-AC_DC.mp3
-Legend,The Score,Alternative,Music\Legend-The_Score.mp3
-Monaco,Lagos&DannyOcean,Pop,Music\Monaco-Lagos_DannyOcean.mp3
-Back in black,AC/DC,Metal,Music\Back_in_Black-AC_DC.mp3
-Legend,The Score,Alternative,Music\Legend-The_Score.mp3
-Monaco,Lagos&DannyOcean,Pop,Music\Monaco-Lagos_DannyOcean.mp3
-Back in black,AC/DC,Metal,Music\Back_in_Black-AC_DC.mp3
-Legend,The Score,Alternative,Music\Legend-The_Score.mp3
+Monaco,Lagos&DannyOcean,Pop,MusicPlayer\Music\Monaco-Lagos_DannyOcean.mp3
+Back in black,AC/DC,Metal,MusicPlayer\Music\Back_in_Black-AC_DC.mp3
+Starboy,ElFinDeSemana,Pop,MusicPlayer\Music\Starboy-The_Weekend.mp3
+Bones,Imagine Dragons,Alternative,MusicPlayer\Music\Bones-Imagine_Dragons.mp3
+I Felt It Coming,ElFinDeSemana,Pop,MusicPlayer\Music\I_Feel_It_Coming-The_Weeknd.mp3
+Hoy el aire huele a ti,Luis Miguel,Balada,MusicPlayer\Music\Hoy_el_aire_huele_a_ti-Luis_Miguel.mp3
+Legend,The Score,Alternative,MusicPlayer\Music\Legend-The_Score.mp3
+La pelotona,Cartel de Santa,Rap,MusicPlayer\Music\La_pelotona-Cartel_de_santa.mp3
+Won't go home without you,Marron 5,Pop,MusicPlayer\Music\Wont_go_home_without_you-Maroon_5.mp3
+Creep,Radiohead,Alternative,MusicPlayer\Music\Creep-Radiohead.mp3
+Icon,Jaden Smith,Hip hop,MusicPlayer\Music\Icon-Jaden_Smith.mp3
+Paranoid,Black Sabbath,Metal,MusicPlayer\Music\Paranoid-Black_Sabbath.mp3
