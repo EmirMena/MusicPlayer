@@ -8,7 +8,7 @@ class GUI:
         self.window=None
         self.song_list=[]
         self.playlist=[]
-        self.song_is_playing=False
+        self.song_state="stopped"
         self.title=""
 
 #VENTANAS-----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -171,11 +171,24 @@ class GUI:
         # Limpiar cualquier widget existente en el frame
         for widget in frame.winfo_children():
             widget.destroy()
+
+        #boton de previous, que funciona para reiniciar la cancion----------------------------------
+        previous_icon=ctk.CTkImage(Image.open("MusicPlayer/images/previous_icon.png"), size=(BUTTON_WITDH, BUTTON_HEIGHT))
+        previous_icon = ctk.CTkButton(
+            master=frame, image=previous_icon,
+            fg_color=self.button_color, 
+            bg_color="transparent", hover_color=self.subtitle_color,text="",
+            corner_radius=0,
+            compound="top",
+            command=lambda: self.Music_Player_Controller.play_song()
+            )
+        previous_icon.pack(side="left", padx=0)
+
         #boton de play y pausa (ya que ambos son los mismos)--------------------------------
         play_icon = ctk.CTkImage(Image.open("MusicPlayer/images/play_icon.png"), size=(BUTTON_WITDH, BUTTON_HEIGHT))
         pause_icon = ctk.CTkImage(Image.open("MusicPlayer/images/pause_icon.png"), size=(BUTTON_WITDH, BUTTON_HEIGHT))
         
-        if self.song_is_playing:
+        if self.song_state=="playing":
             pause_button = ctk.CTkButton(
                 master=frame, image=pause_icon,
                 fg_color=self.button_color, 
@@ -185,7 +198,7 @@ class GUI:
                 command=lambda: self.Music_Player_Controller.pause_song()
                 )
             pause_button.pack(side="left", padx=0)
-        else:
+        if self.song_state=="stopped":
             play_button = ctk.CTkButton(
                 master=frame, image=play_icon,
                 fg_color=self.button_color, 
@@ -195,6 +208,18 @@ class GUI:
                 command=lambda: self.Music_Player_Controller.play_song()
                 )
             play_button.pack(side="left", padx=0)
+        if self.song_state=="paused":
+            play_button = ctk.CTkButton(
+                master=frame, image=play_icon,
+                fg_color=self.button_color, 
+                bg_color="transparent", hover_color=self.subtitle_color,text="",
+                corner_radius=0,
+                compound="top",
+                command=lambda: self.Music_Player_Controller.unpause_song()
+                )
+            play_button.pack(side="left", padx=0)
+            
+
         #boton de next----------------------------------
         next_icon=ctk.CTkImage(Image.open("MusicPlayer/images/next_icon.png"), size=(BUTTON_WITDH, BUTTON_HEIGHT))
         next_icon = ctk.CTkButton(
@@ -206,6 +231,7 @@ class GUI:
             command=lambda: self.Music_Player_Controller.next_song()
             )
         next_icon.pack(side="right", padx=0)
+
 
     def generate_playlist_button(self,frame):
         BUTTON_WITDH = 40  # Ancho fijo para los botones
@@ -254,9 +280,9 @@ class GUI:
 #GETTERS Y SETTERS----------------------------------------------------------------------------------------------------------------------------
     def setController(self, Music_Player_Controller):
         self.Music_Player_Controller=Music_Player_Controller
-    def set_song_is_playing(self,song_is_playing):
-        self.song_is_playing=song_is_playing
-        print(self.song_is_playing)
+    def set_song_state(self,song_state):
+        self.song_state=song_state
+        print(self.song_state)
     def set_song_list(self,song_list):
         self.song_list=song_list
     def set_playlist(self,playlist):
