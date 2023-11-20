@@ -9,9 +9,11 @@ class GUI:
         self.song_list=[]
         self.playlist=[]
         self.song_is_playing=False
+        self.title=""
 
 #VENTANAS-----------------------------------------------------------------------------------------------------------------------------------------------------------------
     def generate_window(self,titulo):
+        self.titulo=titulo
         #atributos de configuracion gráfica
         self.title_color="#55BDED"
         self.background_color="#362836"
@@ -32,7 +34,7 @@ class GUI:
         self.frame.pack(pady=10, padx=10, fill="both", expand=True)
         self.label = ctk.CTkLabel(
             master=self.frame,
-            text=titulo, 
+            text=self.titulo, 
             font=self.main_font, 
             bg_color=self.background_color, 
             text_color=self.title_color)
@@ -69,9 +71,9 @@ class GUI:
         #Reproductor de musica (botones de play, next, previous?)
         control_bar_frame = ctk.CTkFrame(master=self.window,fg_color="transparent")
         control_bar_frame.pack(pady=20, side="bottom")
-        player_frame = ctk.CTkFrame(master=control_bar_frame)
-        player_frame.pack(pady=0, padx=340, side="left")
-        self.generate_player_buttons(player_frame)
+        self.player_frame = ctk.CTkFrame(master=control_bar_frame)
+        self.player_frame.pack(pady=0, padx=340, side="left")
+        self.generate_player_buttons()
         playlist_button_frame= ctk.CTkFrame(master=control_bar_frame)
         playlist_button_frame.pack(pady=0, padx=0, side="right")
         self.generate_playlist_button(playlist_button_frame)
@@ -90,9 +92,9 @@ class GUI:
 
         control_bar_frame = ctk.CTkFrame(master=self.window,fg_color="transparent")
         control_bar_frame.pack(pady=20, side="bottom")
-        player_frame = ctk.CTkFrame(master=control_bar_frame)
-        player_frame.pack(pady=0, padx=340, side="left")
-        self.generate_player_buttons(player_frame)
+        self.player_frame = ctk.CTkFrame(master=control_bar_frame)
+        self.player_frame.pack(pady=0, padx=340, side="left")
+        self.generate_player_buttons()
         music_player_button_frame= ctk.CTkFrame(master=control_bar_frame)
         music_player_button_frame.pack(pady=0, padx=0, side="right")
         self.generate_music_player_button(music_player_button_frame)
@@ -162,15 +164,18 @@ class GUI:
             add_song_button.grid(row=row_counter + 1, column=1)
             row_counter += 1
 
-    def generate_player_buttons(self,frame):
+    def generate_player_buttons(self):
+        frame= self.player_frame
         BUTTON_WITDH = 40  # Ancho fijo para los botones
         BUTTON_HEIGHT = 40  # Alto fijo para los botones
+        # Limpiar cualquier widget existente en el frame
+        for widget in frame.winfo_children():
+            widget.destroy()
         #boton de play y pausa (ya que ambos son los mismos)--------------------------------
         play_icon = ctk.CTkImage(Image.open("MusicPlayer/images/play_icon.png"), size=(BUTTON_WITDH, BUTTON_HEIGHT))
         pause_icon = ctk.CTkImage(Image.open("MusicPlayer/images/pause_icon.png"), size=(BUTTON_WITDH, BUTTON_HEIGHT))
         
         if self.song_is_playing:
-            self.set_song_is_playing(False)
             pause_button = ctk.CTkButton(
                 master=frame, image=pause_icon,
                 fg_color=self.button_color, 
@@ -181,7 +186,6 @@ class GUI:
                 )
             pause_button.pack(side="left", padx=0)
         else:
-            self.set_song_is_playing(True)
             play_button = ctk.CTkButton(
                 master=frame, image=play_icon,
                 fg_color=self.button_color, 
@@ -247,12 +251,12 @@ class GUI:
             )
         playlist_icon.pack(side="right", padx=0)
 
-
 #GETTERS Y SETTERS----------------------------------------------------------------------------------------------------------------------------
     def setController(self, Music_Player_Controller):
         self.Music_Player_Controller=Music_Player_Controller
     def set_song_is_playing(self,song_is_playing):
         self.song_is_playing=song_is_playing
+        print(self.song_is_playing)
     def set_song_list(self,song_list):
         self.song_list=song_list
     def set_playlist(self,playlist):

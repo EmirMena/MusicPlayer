@@ -17,8 +17,12 @@ class Music_Player_Controller():
         self.GUI.set_playlist(actual_playlist)
     def play_song(self):
         self.music_player.play_audio()   
+        self.GUI.set_song_is_playing(True)
+        self.GUI.generate_player_buttons()
     def pause_song(self):
         self.music_player.pause_audio()
+        self.GUI.set_song_is_playing(False)
+        self.GUI.generate_player_buttons()
     def unpause_song(self):
         self.music_player.unpause_audio()
     def next_song(self):
@@ -30,15 +34,6 @@ class Music_Player_Controller():
         self.music_player.add_song_playlist_path(song_path)
         self.music_player.add_song_playlist_data(song_data)
         self.load_playlist_GUI()
-    def song_is_playing(self):
-        #comprobar si la cancion está sonando para cambiar la interfaz
-        if self.music_player.song_is_playing():
-            print("sonando")
-            self.GUI.set_song_is_playing(True)
-        else:
-            print("pausada")
-            self.GUI.set_song_is_playing(False)
-        
 
         
 
