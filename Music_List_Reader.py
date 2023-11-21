@@ -3,17 +3,16 @@ class Music_List_Reader():
         self.file_path = "MusicPlayer/Music_List.txt" 
 
     def read_file(self):
-        data = []
+        music_data = []
         try:
             with open(self.file_path, 'r') as file:
-                print(data)
                 for line in file:
                     columns = line.strip().split(',')
                     if len(columns) == 4:
-                        data.append(columns)
+                        music_data.append(columns)
         except FileNotFoundError:
             print(f"El archivo {self.file_path} no fue encontrado.")
-        return data
+        return music_data
 
 
 
