@@ -1,8 +1,8 @@
-from models import AVLNode_Name
+from models import AVLNode_Author
 from models.array_stack import ArrayStack
 
-class AVLNode_Name:
-    def __init__(self, song=None, left:AVLNode_Name=None, right:AVLNode_Name=None, father:AVLNode_Name=None,f_eq:int=0):
+class AVLNode_Author:
+    def __init__(self, song=None, left:AVLNode_Author=None, right:AVLNode_Author=None, father:AVLNode_Author=None,f_eq:int=0):
         self.__song = song
         self.__left = left
         self.__right = right
@@ -43,11 +43,11 @@ class AVLNode_Name:
     "------------------------------------------------------------------------------------------------------------------------"
 
     @staticmethod
-    def height(node:AVLNode_Name=None)->int:
+    def height(node:AVLNode_Author=None)->int:
         if node is None:
             return -1
         else:
-            return 1 + max(AVLNode_Name.height(node.left),AVLNode_Name.height(node.right))
+            return 1 + max(AVLNode_Author.height(node.left),AVLNode_Author.height(node.right))
 
     "LISTING METHODS"
 
@@ -64,3 +64,4 @@ class AVLNode_Name:
         stack.push(self.song)
         if self.right != None:
             self.right.fill_stack(stack)
+    

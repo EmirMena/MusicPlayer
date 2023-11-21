@@ -1,9 +1,9 @@
-from models.AVLNode_Name import AVLNode_Name
+from models.AVLNode_Author import AVLNode_Author
 from models.array_stack import ArrayStack
 
-class AVLTree_Name:
+class AVLTree_Author:
     def __init__(self,song=None) -> None:
-        self.__root = AVLNode_Name(song=song)
+        self.__root = AVLNode_Author(song=song)
     
     @property
     def root(self):
@@ -26,37 +26,37 @@ class AVLTree_Name:
         if self.root is not None:
             self.root.generate_ascending_list(ascending_list)
         return ascending_list
-    
+
     def generate_descending_list(self):
         stack = self.fill_stack()
         descending_list = []
         while not stack.is_empty():
             descending_list.append(stack.pop())
         return descending_list
-    
+
     def fill_stack(self):
         stack = ArrayStack()
         if self.root is not None:
             self.root.fill_stack(stack)
         return stack
 
-    "NAME SEARCHING METHOD"
+    "AUTHOR SEARCHING METHOD"
 
-    def search_name(self, name):
+    def search_author(self, author):
         if self.root is None:
             return None
         node = self.root
         while node is not None:
-            if node.song.name == name:
+            if node.song.author == author:
                 return node.song
-            elif name < node.song.name:
+            elif author < node.song.author:
                 node = node.left
             else:
                 node = node.right
         return None
             
     "------------------------------------------------------------------------------------------------------------------------"
-    def __ii_rotation(self, node:AVLNode_Name):
+    def __ii_rotation(self, node:AVLNode_Author):
         father = node.father
         p = node 
         q = p.left 
@@ -78,7 +78,7 @@ class AVLTree_Name:
         p.f_eq = 0
         q.f_eq = 0
 
-    def __dd_rotation(self, node:AVLNode_Name):
+    def __dd_rotation(self, node:AVLNode_Author):
         father = node.father
         p = node 
         q = p.right
@@ -100,7 +100,7 @@ class AVLTree_Name:
         p.f_eq = 0
         q.f_eq = 0
 
-    def __id_rotation(self, node:AVLNode_Name):
+    def __id_rotation(self, node:AVLNode_Author):
         father = node.father
         p = node 
         q = p.left 
@@ -176,7 +176,7 @@ class AVLTree_Name:
             q.f_eq =  0 
         r.f_eq = 0
     
-    def __balance(self, node:AVLNode_Name):
+    def __balance(self, node:AVLNode_Author):
         current_fe = node.f_eq
         if current_fe == 2:
             #Determine the rotation
@@ -196,9 +196,9 @@ class AVLTree_Name:
             elif left_child_fe == 1:
                 self.__id_rotation(node)
 
-    def __recalculate_fe(self, node:AVLNode_Name):
+    def __recalculate_fe(self, node:AVLNode_Author):
         if node is not None:
-            node.f_eq = AVLNode_Name.height(node.right)-AVLNode_Name.height(node.left)
+            node.f_eq = AVLNode_Author.height(node.right)-AVLNode_Author.height(node.left)
             if abs(node.f_eq) == 2:
                 self.__balance(node)
             else:
@@ -207,17 +207,17 @@ class AVLTree_Name:
 
     "INSERT METHODS"
 
-    def __insert_ordered(self, node:AVLNode_Name, song):
-        n = node.song.name
-        if song.name < n:
+    def __insert_ordered(self, node:AVLNode_Author, song):
+        n = node.song.author
+        if song.author < n:
             if node.left is None:
-                node.left = AVLNode_Name(song,None,None,node)
+                node.left = AVLNode_Author(song,None,None,node)
                 self.__recalculate_fe(node)
             else:
                 self.__insert_ordered(node.left,song)
-        if song.name > n:
+        if song.author > n:
             if node.right is None:
-                node.right = AVLNode_Name(song,None,None, node)
+                node.right = AVLNode_Author(song,None,None, node)
                 self.__recalculate_fe(node)
             else:
                 self.__insert_ordered(node.right,song)
