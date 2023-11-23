@@ -1,21 +1,20 @@
-from models import AVLNode_Author
+from models import AVLNode
 from models.array_stack import ArrayStack
 
-class AVLNode_Author:
-    def __init__(self, song=None, left:AVLNode_Author=None, right:AVLNode_Author=None, father:AVLNode_Author=None,f_eq:int=0):
-        self.__song = song
+class AVLNode:
+    def __init__(self, song=None, left:AVLNode=None, right:AVLNode=None, father:AVLNode=None,f_eq:int=0):
         self.__left = left
         self.__right = right
         self.__father = father
         self.__f_eq = f_eq
 
+        self.__list = []
+        self.insert_song(song)
+
     "------------------------------------------------------------------------------------------------------------------------"
     @property
-    def song(self):
-        return self.__song
-    @song.setter
-    def song(self, song):
-        self.__song = song
+    def list(self):
+        return self.__list
     @property
     def left(self):
         return self.__left
@@ -43,25 +42,33 @@ class AVLNode_Author:
     "------------------------------------------------------------------------------------------------------------------------"
 
     @staticmethod
-    def height(node:AVLNode_Author=None)->int:
+    def height(node:AVLNode=None)->int:
         if node is None:
             return -1
         else:
-            return 1 + max(AVLNode_Author.height(node.left),AVLNode_Author.height(node.right))
+            return 1 + max(AVLNode.height(node.left),AVLNode.height(node.right))
 
     "LISTING METHODS"
 
     def generate_ascending_list(self, ascending_list: []):
         if self.left != None:
             self.left.generate_ascending_list(ascending_list)
-        ascending_list.append(self.song)
+        ascending_list = self.add_list_to_returning_list(ascending_list)
         if self.right != None:
             self.right.generate_ascending_list(ascending_list)
     
     def fill_stack(self, stack: ArrayStack):
         if self.left != None:
             self.left.fill_stack(stack)
-        stack.push(self.song)
+        stack.push(self.__list)
         if self.right != None:
             self.right.fill_stack(stack)
+    
+    def insert_song(self, song):
+        self.__list.append(song)
+
+    def add_list_to_returning_list(self, list:[]):
+        for song in self.list:
+            list.append(song)
+        return list
     

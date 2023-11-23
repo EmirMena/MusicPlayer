@@ -64,3 +64,5 @@ class AVLNode_Name:
         stack.push(self.song)
         if self.right != None:
             self.right.fill_stack(stack)
+    
+    

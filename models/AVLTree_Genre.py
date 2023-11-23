@@ -1,7 +1,7 @@
 from models.AVLNode import AVLNode
 from models.array_stack import ArrayStack
 
-class AVLTree_Author:
+class AVLTree_Genre:
     def __init__(self,song=None) -> None:
         self.__root = AVLNode(song=song)
     
@@ -26,7 +26,7 @@ class AVLTree_Author:
         if self.root is not None:
             self.root.generate_ascending_list(ascending_list)
         return ascending_list
-
+    
     def generate_descending_list(self):
         stack = self.fill_stack()
         descending_list = []
@@ -35,23 +35,23 @@ class AVLTree_Author:
             for song in list:
                 descending_list.append(song)
         return descending_list
-
+    
     def fill_stack(self):
         stack = ArrayStack()
         if self.root is not None:
             self.root.fill_stack(stack)
         return stack
 
-    "AUTHOR SEARCHING METHOD"
+    "GENRE SEARCHING METHOD"
 
-    def search_author(self, author):
+    def search_genre(self, genre):
         if self.root is None:
             return None
         node = self.root
         while node is not None:
-            if node.list[0].author == author:
+            if node.list[0].genre == genre:
                 return node.list
-            elif author < node.list[0].author:
+            elif genre < node.list[0].genre:
                 node = node.left
             else:
                 node = node.right
@@ -210,20 +210,20 @@ class AVLTree_Author:
     "INSERT METHODS"
 
     def __insert_ordered(self, node:AVLNode, song):
-        n = node.list[0].author
-        if song.author < n:
+        n = node.list[0].genre
+        if song.genre < n:
             if node.left is None:
                 node.left = AVLNode(song,None,None,node)
                 self.__recalculate_fe(node)
             else:
                 self.__insert_ordered(node.left,song)
-        elif song.author > n:
+        elif song.genre > n:
             if node.right is None:
                 node.right = AVLNode(song,None,None, node)
                 self.__recalculate_fe(node)
             else:
                 self.__insert_ordered(node.right,song)
-        elif song.author == n:
+        elif song.genre == n:
             node.insert_song(song)
     
     def insert(self, song):
