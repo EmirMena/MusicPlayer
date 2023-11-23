@@ -6,4 +6,3 @@ Music_Player_Controller = Music_Player_Controller(window)
 window.setController(Music_Player_Controller)
 window.main_playback_window()
 
-

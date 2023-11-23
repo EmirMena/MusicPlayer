@@ -1,5 +1,6 @@
 import customtkinter as ctk
 from PIL import ImageTk, Image
+from models.Song import Song
 
 class GUI:
     def __init__(self):
@@ -7,9 +8,10 @@ class GUI:
         ctk.set_appearance_mode("dark")
         self.window=None
         self.song_list=[]
-        self.playlist=[]
+        self.play_queue=[]
         self.song_state="stopped"
         self.title=""
+        
 
 #VENTANAS-----------------------------------------------------------------------------------------------------------------------------------------------------------------
     def generate_window(self,titulo):
@@ -40,7 +42,7 @@ class GUI:
             text_color=self.title_color)
         self.label.pack(pady=0, padx=0)
     """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    #VENTANA PRINCIPAL
+    #VENTANA PRINCIPAL (PLAYLIST)
     """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     def main_playback_window(self):
         if self.window != None:
@@ -48,10 +50,21 @@ class GUI:
         self.generate_window("Reproductor")
 
         #Buscador de canciones y filtro (para la insercion)
-        finder_frame = ctk.CTkFrame(master=self.frame)
-        finder_frame.pack(pady=0, padx=0)
-        self.generate_search_entry_field(finder_frame,"left","Cancion")
-        self.generate_search_entry_field(finder_frame,"right","Artista")
+        searcher_frame = ctk.CTkFrame(master=self.frame)
+        searcher_frame.pack(pady=0, padx=0)
+        self.song_name= self.generate_search_entry_field(searcher_frame,"left","Cancion")
+        search_button = ctk.CTkImage(Image.open("MusicPlayer/images/next_icon.png"), size=(65, 35))
+        search_button=ctk.CTkButton(
+            master=searcher_frame, image=search_button,
+            fg_color=self.button_color, 
+            bg_color="transparent", hover_color=self.subtitle_color,text="",
+            corner_radius=0,
+            compound="top",
+            command=lambda: self.get_search_request()
+        )
+        search_button.pack(side="right",pady=0,padx=0)
+        self.author_name=self.generate_search_entry_field(searcher_frame,"right","Género")
+        self.genre_name= self.generate_search_entry_field(searcher_frame,"right","Artista")
 
         #filtro de opciones
         option_frame = ctk.CTkFrame(master=self.frame, fg_color=self.background_color)
@@ -75,15 +88,15 @@ class GUI:
 
         self.window.mainloop()
     """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    VENTANA LISTA DE REPRODUCCION
+    VENTANA COLA DE REPRODUCCION
     """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     def playlist_window(self):
         if self.window != None:
             self.window.destroy()
         self.generate_window("Reproductor")
-        playlist_frame=ctk.CTkFrame(master=self.frame)
-        playlist_frame.pack(side="top")
-        self.generate_playlist_songs(playlist_frame)
+        play_queue_frame=ctk.CTkFrame(master=self.frame)
+        play_queue_frame.pack(side="top")
+        self.generate_play_queue(play_queue_frame)
 
         control_bar_frame = ctk.CTkFrame(master=self.window,fg_color="transparent")
         control_bar_frame.pack(pady=20, side="bottom")
@@ -96,7 +109,7 @@ class GUI:
         self.window.mainloop()
 
     """FUNCIONES PARA GENERAR LOS BOTONES------------------------------------------------------------------------------------------------------------------------"""
-    def generate_playlist_songs(self,frame):
+    def generate_play_queue(self,frame):
         BUTTON_WITDH = 690  # Ancho fijo para los botones
         BUTTON_HEIGHT = 35  # Alto fijo para los botones
         row_counter = 0
@@ -108,12 +121,10 @@ class GUI:
             corner_radius=0
             )
         scroller_frame.pack(pady=0,padx=0)
-        print(self.playlist)
-        for song in self.playlist:
-            songs_name, autor = song[0], song[1]
+        for song in self.play_queue:
             playlist_song_button =ctk.CTkButton(
                 master=scroller_frame,
-                text=songs_name + " from: " + autor,
+                text=song.name + " from: " + song.author,
                 width=BUTTON_WITDH, height=BUTTON_HEIGHT,
                 fg_color=self.secundary_background_color,
                 bg_color=self.secundary_background_color,hover_color=self.title_color,
@@ -139,16 +150,16 @@ class GUI:
             )
         scroller_frame.pack(pady=0,padx=0)
         for song in self.song_list:
-            songs_name, autor, song_path = song[0], song[1], song[3]
+            song_aux= song
             reproduction_song_button =ctk.CTkButton(
                 master=scroller_frame,
-                text=songs_name + " from: " + autor,
+                text=song.name+ " - " + song.author + " - "+ song.genre,
                 width=BUTTON_WITDH, height=BUTTON_HEIGHT,
                 fg_color=self.secundary_background_color,
                 bg_color=self.secundary_background_color,hover_color=self.title_color,
                 font=self.secundary_font,
                 corner_radius=0,
-                command=lambda path=song_path: self.Music_Player_Controller.play_raw_song(path))
+                command=lambda second_song_aux=song_aux: self.Music_Player_Controller.play_raw_song(second_song_aux))
             reproduction_song_button.grid(row=row_counter + 1, column=0)
             add_song_button = ctk.CTkButton(
                 master=scroller_frame, image=add_icon,
@@ -157,7 +168,7 @@ class GUI:
                 bg_color=self.button_color,hover_color=self.subtitle_color,
                 font=self.secundary_font,
                 corner_radius=0,
-                command=lambda song_name=songs_name,autor=autor, path=song_path: self.Music_Player_Controller.add_song(song_name,autor,path))
+                command=lambda second_song_aux=song_aux: self.Music_Player_Controller.add_song(second_song_aux))
             add_song_button.grid(row=row_counter + 1, column=1)
             row_counter += 1
 
@@ -195,18 +206,22 @@ class GUI:
         )
 
     def generate_option_menu(self,frame): 
-        #optionmenu_var = ctk.StringVar(value="option 3")
         optionmenu = ctk.CTkOptionMenu(
             master=frame,
-            values=["Nombre", "Artista","Genero"],
+            values=["Nombre","Nombre (descendiente)","Artista", "Artista (descendiente)","Género","Género (descendiente)"],
             fg_color=self.main_text_color,
             bg_color="transparent",
             button_color=self.subtitle_color,
             button_hover_color=self.emphasis_color,
             corner_radius=0,
             height=45,
+            command=self.optionmenu_callback
         )
         optionmenu.pack(side="right")
+        
+    def optionmenu_callback(self,order_choice):
+        self.refresh_command_request(order_choice)
+
 
     def generate_button(self, frame, path, command, pack_side):
         BUTTON_WITDH = 40  # Ancho fijo para los botones
@@ -227,10 +242,25 @@ class GUI:
         search_entry_field=ctk.CTkEntry(
             master=frame,
             fg_color=self.button_color,
-            width=350,placeholder_text=placeholder,
+            width=270,placeholder_text=placeholder,
             font=self.secundary_font,border_width=0,
             corner_radius=0)
-        search_entry_field.pack(side=side,pady=0,padx=2)
+        search_entry_field.pack(side=side,pady=0,padx=1)
+        return search_entry_field
+        
+    def getEntryValue(self):
+        song_name_value=self.song_name.get()
+        genre_name_value=self.genre_name.get()
+        author_name_value=self.author_name.get()
+        entry_values=[song_name_value,author_name_value,genre_name_value]
+        return entry_values
+        
+    def get_search_request(self):
+        entry_values=self.getEntryValue()
+        self.get_search_command_request(entry_values)
+
+    def refresh_main_playback_window(self):
+        self.generate_song_buttons()
 
     """GETTERS Y SETTERS---------------------------------------------------------------------------------------------------------------------------- """
     def setController(self, Music_Player_Controller):
@@ -254,3 +284,7 @@ class GUI:
         self.Music_Player_Controller.next_song()
     def rewind_song_command_request(self):
         self.Music_Player_Controller.rewind_song()
+    def refresh_command_request(self,order_choice):
+        self.Music_Player_Controller.refresh_GUI_by_order(order_choice)
+    def get_search_command_request(self,entry_values):
+        self.Music_Player_Controller.search_songs(entry_values)

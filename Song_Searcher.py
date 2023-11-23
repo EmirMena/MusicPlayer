@@ -44,6 +44,9 @@ class Song_Searcher:
                     self.authors_tree.insert(song)
     
 #---------------------------------------------------Listing methods---------------------------------------------------
+    def generate_default_list(self):
+        return self.song_list
+    
     def generate_name_ascending_list(self):
         return self.names_tree.generate_ascending_list()
 
@@ -64,7 +67,7 @@ class Song_Searcher:
 
 #---------------------------------------------------Searching methods---------------------------------------------------
     def search_song_by_name(self, name):
-        return self.names_tree.search_name(name)
+        return self.song_to_list(self.names_tree.search_name(name))
 
     def search_song_by_genre(self, genre):
         return self.genres_tree.search_genre(genre)
@@ -79,7 +82,7 @@ class Song_Searcher:
             return None
         else: 
             if (self.search_for_song_name_in_list(song_searched_by_name, genre_list) == True):
-                return song_searched_by_name
+                return self.song_to_list(song_searched_by_name)
             else:
                 return None
     
@@ -93,7 +96,7 @@ class Song_Searcher:
             return None
         else: 
             if (self.search_for_song_name_in_list(song_searched_by_name, author_list) == True):
-                return song_searched_by_name
+                return self.song_to_list(song_searched_by_name)
             else:
                 return None
 
@@ -131,6 +134,10 @@ class Song_Searcher:
                     coincidences_list.append(song)
         return coincidences_list
         
+    def song_to_list(self,song):
+        simple_list=[]
+        simple_list.append(song)
+        return simple_list
 
 
 
