@@ -47,7 +47,6 @@ class AVLTree_Name:
             return None
         node = self.root
         while node is not None:
-            print(node.song.name)
             if node.song.name == name:
                 return node.song
             elif name < node.song.name:

@@ -96,7 +96,10 @@ class Song_Searcher:
                 return song_searched_by_name
             else:
                 return None
-            
+
+    def search_song_by_author_and_name(self, author: str, name: str):
+        self.search_song_by_name_and_author(name, author)
+
     def search_song_by_genre_and_author(self, genre: str, author: str):
         genre_list = self.genres_tree.search_genre(genre)
         author_list = self.authors_tree.search_author(author)
@@ -108,6 +111,9 @@ class Song_Searcher:
                 return None
             else:
                 return coincidences_list
+            
+    def search_song_by_author_and_genre(self, author: str, genre: str):
+        self.search_song_by_genre_and_author(genre, author)
 
     def search_for_song_name_in_list(self, song_by_name: Song, genre_or_author_list: []):
         if len(genre_or_author_list) == 0: return False
@@ -125,9 +131,6 @@ class Song_Searcher:
                     coincidences_list.append(song)
         return coincidences_list
         
-if __name__ == '__main__':
-    searcher = Song_Searcher()
-    print(searcher.search_song_by_name_and_genre("Sarboy", "Pop"))
 
 
 
