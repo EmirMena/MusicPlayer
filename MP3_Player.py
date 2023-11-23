@@ -29,6 +29,10 @@ class MP3_Player():
     def unpause_audio(self):
         "Musica Despausada"
         pygame.mixer.music.unpause()
+    
+    def rewind_audio(self):
+        "Musica reiniciada"
+        pygame.mixer.music.rewind()
 
     def next_song(self):
         print("Indice de reproduccón actual: " + str(self.actual_song_index) + " Longitud del array: " + str(len(self.playlist_path)) + " Cancion: " + self.playlist_path[0])

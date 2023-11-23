@@ -30,6 +30,10 @@ class Music_Player_Controller():
         self.music_player.next_song()
         self.GUI.set_song_state("playing")
         self.GUI.generate_player_buttons()
+    def rewind_song(self):
+        self.music_player.rewind_audio()
+        self.GUI.set_song_state("playing")
+        self.GUI.generate_player_buttons()
     def play_raw_song(self,song_path):#Reproducir cancion elegida en la GUI
         self.music_player.play_raw_audio(song_path)
         self.GUI.set_song_state("playing")
@@ -39,7 +43,7 @@ class Music_Player_Controller():
         self.music_player.add_song_playlist_path(song_path)
         self.music_player.add_song_playlist_data(song_data)
         self.load_playlist_GUI()
-
+    
         
 
     
