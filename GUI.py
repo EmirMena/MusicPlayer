@@ -53,7 +53,7 @@ class GUI:
         searcher_frame = ctk.CTkFrame(master=self.frame)
         searcher_frame.pack(pady=0, padx=0)
         self.song_name= self.generate_search_entry_field(searcher_frame,"left","Cancion")
-        search_button = ctk.CTkImage(Image.open("MusicPlayer/images/next_icon.png"), size=(65, 35))
+        search_button = ctk.CTkImage(Image.open("MusicPlayer/images/search_icon.png"), size=(35, 35))
         search_button=ctk.CTkButton(
             master=searcher_frame, image=search_button,
             fg_color=self.button_color, 
