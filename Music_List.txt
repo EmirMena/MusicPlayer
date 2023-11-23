@@ -10,3 +10,4 @@ Won't go home without you,Marron 5,Pop,MusicPlayer\Music\Wont_go_home_without_yo
 Creep,Radiohead,Alternative,MusicPlayer\Music\Creep-Radiohead.mp3
 Icon,Jaden Smith,Hip hop,MusicPlayer\Music\Icon-Jaden_Smith.mp3
 Paranoid,Black Sabbath,Metal,MusicPlayer\Music\Paranoid-Black_Sabbath.mp3
+Toda la noche,Sabino,Hip hop,MusicPlayer\Music\Toda la noche-Sabino.mp3
