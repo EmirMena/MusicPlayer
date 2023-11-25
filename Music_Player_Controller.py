@@ -13,7 +13,8 @@ class Music_Player_Controller():
         self.show_default_playlist()
         
     def play_song(self):
-        self.music_player.play_audio()   
+        self.music_player.play_audio()
+        self.load_actual_song_to_GUI()
         self.GUI.set_song_state("playing")
         self.GUI.generate_player_buttons()
     def pause_song(self):
@@ -26,6 +27,7 @@ class Music_Player_Controller():
         self.GUI.generate_player_buttons()
     def next_song(self):
         self.music_player.next_song()
+        self.load_actual_song_to_GUI()
         self.GUI.set_song_state("playing")
         self.GUI.generate_player_buttons()
     def rewind_song(self):
@@ -34,6 +36,7 @@ class Music_Player_Controller():
         self.GUI.generate_player_buttons()
     def play_raw_song(self,song):#Reproducir cancion elegida en la GUI
         self.music_player.play_raw_audio(song)
+        self.load_actual_song_to_GUI()
         self.GUI.set_song_state("playing")
         self.GUI.generate_player_buttons()
     def add_song(self,song):#añade cancion a la lista de reproduccion
@@ -112,4 +115,6 @@ class Music_Player_Controller():
         elif (order_choice=="Género (descendiente)"):
             self.show_genre_descending_playlist()
         self.GUI.refresh_main_playback_window()
+    def load_actual_song_to_GUI(self):
+        self.GUI.actual_song_playing = self.music_player.get_actual_song_playing()
     

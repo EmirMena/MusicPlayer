@@ -10,6 +10,7 @@ class GUI:
         self.song_list=[]
         self.play_queue=[]
         self.song_state="stopped"
+        self.actual_song_playing=Song('', '', '', '')
         self.title=""
         
 
@@ -24,16 +25,26 @@ class GUI:
         self.emphasis_color="#55BDED"
         self.secundary_background_color="#5E5A91"
         self.button_color="#533D5A"
-        self.main_font="SquareFont"
-        self.secundary_font="Dubai"
+        self.main_font="Bahnschrift"
+        self.secundary_font="Century Gothic"
 
         self.window=ctk.CTk() 
         self.window.geometry("1280x720")
         self.window.title(titulo)
+
         self.main_font = ctk.CTkFont(family=self.main_font, size=55)
         self.secundary_font = ctk.CTkFont(family=self.secundary_font, size=25)
+        
         self.frame = ctk.CTkFrame(master=self.window, fg_color=self.background_color)
         self.frame.pack(pady=10, padx=10, fill="both", expand=True)
+
+        #Reproductor de musica (botones de play, next, previous?)
+        self.control_bar_frame = ctk.CTkFrame(master=self.window,fg_color="transparent")
+        self.control_bar_frame.pack(pady=20, side="bottom")
+        self.player_frame = ctk.CTkFrame(master=self.control_bar_frame)
+        self.player_frame.pack(pady=0, padx=10, side="left")
+
+        self.generate_player_buttons()
         self.label = ctk.CTkLabel(
             master=self.frame,
             text=self.titulo, 
@@ -53,7 +64,7 @@ class GUI:
         searcher_frame = ctk.CTkFrame(master=self.frame)
         searcher_frame.pack(pady=0, padx=0)
         self.song_name= self.generate_search_entry_field(searcher_frame,"left","Cancion")
-        search_button = ctk.CTkImage(Image.open("MusicPlayer/images/search_icon.png"), size=(35, 35))
+        search_button = ctk.CTkImage(Image.open("MusicPlayer/images/search_icon.png"), size=(28, 28))
         search_button=ctk.CTkButton(
             master=searcher_frame, image=search_button,
             fg_color=self.button_color, 
@@ -76,15 +87,13 @@ class GUI:
         self.song_list_frame.pack(pady=0, padx=0)
         self.generate_song_buttons()
         
-        #Reproductor de musica (botones de play, next, previous?)
-        control_bar_frame = ctk.CTkFrame(master=self.window,fg_color="transparent")
-        control_bar_frame.pack(pady=20, side="bottom")
-        self.player_frame = ctk.CTkFrame(master=control_bar_frame)
-        self.player_frame.pack(pady=0, padx=340, side="left")
-        self.generate_player_buttons()
-        playlist_button_frame= ctk.CTkFrame(master=control_bar_frame)
-        playlist_button_frame.pack(pady=0, padx=0, side="right")
-        self.generate_button(playlist_button_frame,"MusicPlayer/images/playlist_icon.png",self.playlist_window,"right")
+
+        #self.generate_actual_song_playing(control_bar_frame)
+        # self.player_frame = ctk.CTkFrame(master=self.control_bar_frame)
+        # self.player_frame.pack(pady=0, padx=10, side="left")
+        # self.generate_player_buttons()
+
+        self.generate_button(self.control_bar_frame,"MusicPlayer/images/playlist_icon.png",self.playlist_window,"left")
 
         self.window.mainloop()
     """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -98,12 +107,11 @@ class GUI:
         play_queue_frame.pack(side="top")
         self.generate_play_queue(play_queue_frame)
 
-        control_bar_frame = ctk.CTkFrame(master=self.window,fg_color="transparent")
-        control_bar_frame.pack(pady=20, side="bottom")
-        self.player_frame = ctk.CTkFrame(master=control_bar_frame)
-        self.player_frame.pack(pady=0, padx=340, side="left")
-        self.generate_player_buttons()
-        music_player_button_frame= ctk.CTkFrame(master=control_bar_frame)
+        #self.generate_actual_song_playing(control_bar_frame)
+        # self.player_frame = ctk.CTkFrame(master=self.control_bar_frame)
+        # self.player_frame.pack(pady=0, padx=340, side="left")
+        #self.generate_player_buttons()
+        music_player_button_frame= ctk.CTkFrame(master=self.control_bar_frame)
         music_player_button_frame.pack(pady=0, padx=0, side="right")
         self.generate_button(music_player_button_frame,"MusicPlayer/images/music_player_icon.png",self.main_playback_window,"right")
         self.window.mainloop()
@@ -163,7 +171,7 @@ class GUI:
             reproduction_song_button.grid(row=row_counter + 1, column=0)
             add_song_button = ctk.CTkButton(
                 master=scroller_frame, image=add_icon,
-                text="", height=BUTTON_HEIGHT+13,
+                text="", height=BUTTON_HEIGHT+2,
                 fg_color=self.button_color,
                 bg_color=self.button_color,hover_color=self.subtitle_color,
                 font=self.secundary_font,
@@ -175,6 +183,8 @@ class GUI:
     def generate_player_buttons(self):
         for widget in self.player_frame.winfo_children():
             widget.destroy()
+
+        self.generate_actual_song_playing(self.player_frame)
         # Botón de previous, que funciona para reiniciar la canción
         self.generate_button(
             self.player_frame,
@@ -204,6 +214,7 @@ class GUI:
             self.next_song_command_request,
             "left"
         )
+        
 
     def generate_option_menu(self,frame): 
         optionmenu = ctk.CTkOptionMenu(
@@ -242,7 +253,7 @@ class GUI:
         search_entry_field=ctk.CTkEntry(
             master=frame,
             fg_color=self.button_color,
-            width=270,placeholder_text=placeholder,
+            width=270, height= 35, placeholder_text=placeholder,
             font=self.secundary_font,border_width=0,
             corner_radius=0)
         search_entry_field.pack(side=side,pady=0,padx=1)
@@ -261,6 +272,23 @@ class GUI:
 
     def refresh_main_playback_window(self):
         self.generate_song_buttons()
+
+    def generate_actual_song_playing(self, frame):
+        BUTTON_WITDH = 400  # Ancho fijo para los botones
+        BUTTON_HEIGHT = 40  # Alto fijo para los botones
+        textbox=ctk.CTkTextbox(
+            master=frame,width=400,font=self.secundary_font,height=40,
+            text_color=self.emphasis_color,
+            fg_color=self.background_color,
+            scrollbar_button_color=self.button_color,
+            scrollbar_button_hover_color=self.main_text_color,
+            wrap="none",
+            
+        )
+        textbox.insert("0.0",self.actual_song_playing.name + " - "+ self.actual_song_playing.author)
+        textbox.configure(state="disable")
+        textbox.pack(side="left",pady=0,padx=0)
+
 
     """GETTERS Y SETTERS---------------------------------------------------------------------------------------------------------------------------- """
     def setController(self, Music_Player_Controller):

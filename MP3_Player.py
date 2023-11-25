@@ -7,6 +7,7 @@ class MP3_Player():
         pygame.mixer.init()
         self.play_queue = []  # Lista que actúa como la cola de reproducción
         self.actual_song_index = 0  # Índice de la canción actual en la lista de reproducción
+        self.actual_song_playing = Song("","","","")
 
     def play_audio(self):
         "musica sonando"
@@ -14,6 +15,7 @@ class MP3_Player():
         if not pygame.mixer.music.get_busy() and self.play_queue:
             pygame.mixer.music.load(self.play_queue[self.actual_song_index].path)
             pygame.mixer.music.play()
+            self.set_actual_song_playing(self.play_queue[self.actual_song_index])
 
     def play_raw_audio(self, song):
         pygame.mixer.music.stop()
@@ -21,6 +23,7 @@ class MP3_Player():
         if not pygame.mixer.music.get_busy():
             pygame.mixer.music.load(song.path)
             pygame.mixer.music.play()
+            self.set_actual_song_playing(song)
 
     def pause_audio(self):
         "Musica pausada"
@@ -48,5 +51,10 @@ class MP3_Player():
         return self.actual_song_index
     def get_play_queue(self):
         return self.play_queue
+    def get_actual_song_playing(self):
+        return self.actual_song_playing
+    def set_actual_song_playing(self,song):
+        self.actual_song_playing=song
+
     
                         
