@@ -1,13 +1,25 @@
 Monaco,Lagos&DannyOcean,Pop,MusicPlayer\Music\Monaco-Lagos_DannyOcean.mp3
 Back in black,AC/DC,Metal,MusicPlayer\Music\Back_in_Black-AC_DC.mp3
-Starboy,ElFinDeSemana,Pop,MusicPlayer\Music\Starboy-The_Weekend.mp3
+Starboy,The_Weeknd,Pop,MusicPlayer\Music\Starboy-The_Weekend.mp3
 Bones,Imagine Dragons,Alternative,MusicPlayer\Music\Bones-Imagine_Dragons.mp3
-I Felt It Coming,ElFinDeSemana,Pop,MusicPlayer\Music\I_Feel_It_Coming-The_Weeknd.mp3
+I Felt It Coming,The Weeknd,Pop,MusicPlayer\Music\I_Feel_It_Coming-The_Weeknd.mp3
 Hoy el aire huele a ti,Luis Miguel,Balada,MusicPlayer\Music\Hoy_el_aire_huele_a_ti-Luis_Miguel.mp3
 Legend,The Score,Alternative,MusicPlayer\Music\Legend-The_Score.mp3
 La pelotona,Cartel de Santa,Rap,MusicPlayer\Music\La_pelotona-Cartel_de_santa.mp3
-Won't go home without you,Marron 5,Pop,MusicPlayer\Music\Wont_go_home_without_you-Maroon_5.mp3
+Won't go home without you,Maroon 5,Pop,MusicPlayer\Music\Wont_go_home_without_you-Maroon_5.mp3
 Creep,Radiohead,Alternative,MusicPlayer\Music\Creep-Radiohead.mp3
 Icon,Jaden Smith,Hip hop,MusicPlayer\Music\Icon-Jaden_Smith.mp3
 Paranoid,Black Sabbath,Metal,MusicPlayer\Music\Paranoid-Black_Sabbath.mp3
 Toda la noche,Sabino,Hip hop,MusicPlayer\Music\Toda la noche-Sabino.mp3
+Inolvidable,Luis Miguel,Pop,MusicPlayer\Music\Inolvidable_Luis_Miguel.mp3
+Oro de ley,Luis Miguel,Pop,MusicPlayer\Music\Oro_de_ley_Luis_Miguel.mp3
+Easy,Commodores,Soul,MusicPlayer\Music\Easy_The_commodores.mp3
+Vuelve,Ricky Martin,Pop,MusicPlayer\Music\Vuelve_Ricky_Martin.mp3
+Still,Commodores,Soul,MusicPlayer\Music\Still_The_commodores.mp3
+Cherry Pie,Warrant,Metal,MusicPlayer\Music\Cherry Pie-Warrant.mp3
+Veneno vil,Fobia,Rock,MusicPlayer\Music\Veneno_Vil-Fobia.mp3
+La mentira,Luis Miguel,Balada,MusicPlayer\Music\La_mentira-Luis_Miguel.mp3
+Sunday morning,Maroon 5,Jazz-fusion,MusicPlayer\Music\Sunday_morning-Maroon5.mp3
+Por tu maldito amor,Vicente Fernandez,Regional mexicano,MusicPlayer\Music\Por_tu_maldito_amor-Vicente_Fernandez.mp3
+Dame,Luis Miguel,Pop,MusicPlayer\Music\Dame-Luis_Miguel.mp3
+Tangled,Maroon 5,Pop rock,MusicPlayer\Music\Tangled-Maroon_5.mp3
